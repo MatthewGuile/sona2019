@@ -11,10 +11,10 @@ library(wordcloud)
 # twitter api authoirsation 
 # create_token(
 # app = "sona2019_analysis",
-# consumer_key = "xqfjOGXzkR3fqZsThG3T85MHa",
-# consumer_secret = "bRnlVfihD68FMISPD1wOW44j9rou4QFQ75qHjqNkR33IgoAaye",
-# access_token = "409115976-BNvV3sNzvWSPR6KyAX5Qb1nDQSvSltdYQGtfSYFl",
-# access_secret = "EEnuvq64MNj9wycpWd2e16879HHoCI9JP4vR0N7jDFyUw")
+# consumer_key = "xxx",
+# consumer_secret = "xxx",
+# access_token = "xxx",
+# access_secret = "xxx")
 
 
 # search twitter for relevant tweets
