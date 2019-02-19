@@ -5,7 +5,7 @@ output: html_notebook
 
 Cyril Ramaphosa, the current president of South Africa, gave his state of the nation address to parliament on the 7 February 2019. His political party, the African National Congress, were initially considered to be pioneers of hope and prosperity for a new South Africa in the wake of the apartheid <cite>[1]</cite>. More recently, the African National Congress has become synonymous with political corruption and greed <cite>[2]</cite>. 
 
-Given South Africa’s storied past, I decided to perform a sentiment analysis on the reaction to the president’s latest state of the nation address by analysing tweets using the hashtag “SONA2019”. 
+Given South Africa's storied past, I decided to perform a sentiment analysis on the reaction to the presidents latest state of the nation address by analysing tweets using the hashtag #SONA2019. 
 
 # Install required packages
 ```{r}
