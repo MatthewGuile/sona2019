@@ -15,7 +15,7 @@ Given South Africa's storied past, I decided to perform a sentiment analysis on 
 # install.packages("syuzhet")
 # install.packages("wordcloud")
 ```
-## Get and clean data
+# Get and clean data
 Using the Rtweet package in combination with twitter's developer API, I obtained 18,000 tweets relating to #SONA2019. The data was then saved as a .csv file for the purpose of analysis.   
 ```{r}
 # Load tweets obtained with twitter developer API
