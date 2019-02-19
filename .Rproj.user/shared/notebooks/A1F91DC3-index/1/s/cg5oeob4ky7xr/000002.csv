@@ -1,0 +1,36 @@
+"0","# Visualise sentiment analysis
+library(plotly)
+"
+"2","Loading required package: ggplot2
+"
+"2","
+Attaching package: ‘plotly’
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    last_plot
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    filter
+
+"
+"2","The following object is masked from ‘package:graphics’:
+
+    layout
+
+"
+"0","emotion_plot2 <- plot_ly(sona_emotions2_sum,"
+"0","                         x = ~sona_emotions2, "
+"0","                         y = ~count, "
+"0","                         type = ""bar"", "
+"0","                         marker = list(color = c(""cyan"", ""rgb(24,154,211)"", "
+"0","                                                 ""orange"", ""rgb(30,187,215)"","
+"0","                                                 ""rgb(254,46,46)"", ""rgb(254,87,87))"", "
+"0","                                                 ""rgb(113,199,236)"", ""rgb(254,129,129)""))) %>%"
+"0","                                 layout (title = ""Count of Emotions (Adjusted) for #SONA2019"", "
+"0","                                         xaxis = list(title = """"),"
+"0","                                         showlegend = TRUE)"
+"0","emotion_plot2"

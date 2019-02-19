@@ -58,7 +58,7 @@ posneg_bar <- colSums(sona_posneg)
 posneg_sum <- data.frame(count = posneg_bar, sona_posneg = names(posneg_bar))
 posneg_sum$sona_posneg <- factor(posneg_sum$sona_posneg, 
                                  levels = posneg_sum$sona_posneg[order(
-                                   posneg_sum$count, decreasing = TRUE)])
+                                 posneg_sum$count, decreasing = TRUE)])
 
 # Visualise sentiment analysis
 posneg_plot <- plot_ly(posneg_sum,
@@ -93,28 +93,29 @@ emotion_plot <- plot_ly(emotion_sum,
                                                 "orange", "rgb(30,187,215)",
                                                 "rgb(254,46,46)", "rgb(254,87,87))", 
                                                 "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
-  layout (title = "Count of Emotions for #SONA2019", 
-          xaxis = list(title = ""),
-          showlegend = FALSE)
+           layout (title = "Count of Emotions for #SONA2019", 
+                   xaxis = list(title = ""),
+                   showlegend = FALSE)
+    
 emotion_plot
 
 # Create wordcloud showing key positive and negative words
 
 # Wordcloud data for cloud comparison
 
-posneg_wordcloud = c(
+posneg_wordcloud <- c(
   paste(tweets.df[allemotions$positive > 0], collapse=" "),
   paste(tweets.df[allemotions$negative > 0], collapse=" ")
 )
 
 # Create corpus for text mining 
-corpus = Corpus(VectorSource(posneg_wordcloud))
+corpus <- Corpus(VectorSource(posneg_wordcloud))
 
 # Remove stopwords 
-corpus = tm_map(corpus, removeWords, c(stopwords("english")))
+corpus <- tm_map(corpus, removeWords, c(stopwords("english")))
 
 # Create term document matrix
-tdm = TermDocumentMatrix(corpus)
+tdm <- TermDocumentMatrix(corpus)
 
 # Convert as matrix
 tdm <- as.matrix(tdm)
@@ -141,13 +142,13 @@ trustfear_wordcloud = c(
   paste(tweets.df[allemotions$fear > 0], collapse=" "))
 
 # Create corpus for text mining 
-corpus2 = Corpus(VectorSource(trustfear_wordcloud))
+corpus2 <- Corpus(VectorSource(trustfear_wordcloud))
 
 # Remove stopwords 
-corpus2 = tm_map(corpus2, removeWords, c(stopwords("english")))
+corpus2 <- tm_map(corpus2, removeWords, c(stopwords("english")))
 
 # Create term document matrix
-tdm2 = TermDocumentMatrix(corpus2)
+tdm2 <- TermDocumentMatrix(corpus2)
 
 # Convert as matrix
 tdm2 <- as.matrix(tdm2)
@@ -208,8 +209,8 @@ emotion_plot2 <- plot_ly(sona_emotions2_sum,
                                                  "orange", "rgb(30,187,215)",
                                                  "rgb(254,46,46)", "rgb(254,87,87))", 
                                                  "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
-  layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
-          xaxis = list(title = ""),
-          showlegend = FALSE)
+          layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
+                  xaxis = list(title = ""),
+                  showlegend = FALSE)
 
 emotion_plot2

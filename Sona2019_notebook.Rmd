@@ -15,7 +15,7 @@ Given South Africa's storied past, I decided to perform a sentiment analysis on 
 # install.packages("syuzhet")
 # install.packages("wordcloud")
 ```
-## Get and clean data
+# Get and clean data
 Using the Rtweet package in combination with twitter's developer API, I obtained 18,000 tweets relating to #SONA2019. The data was then saved as a .csv file for the purpose of analysis.   
 ```{r}
 # Load tweets obtained with twitter developer API
@@ -106,25 +106,25 @@ emotion_plot
 
 
 ```
-The above chart shows one clear outlier with the category <i>trust</i> totalling at 6628 which is 1.6 times larger than the second highest category <i>anticipation</i>. Moreover, <i>trust</i> more than doubles the total of the closest negative category <i>fear</i>. To find out why this is the case, let's explore the words that makeup each sentiment score using the Wordcloud package.
+The above chart shows one clear outlier with the category <i>trust</i> totalling at 6628 which is 1.6 times larger than the second highest category <i>anticipation</i>. Additionally, <i>trust</i> more than doubles the total of the closest negative category <i>fear</i>. To find out why this is the case, let's explore the words that makeup each sentiment score using the Wordcloud package.
 ```{r}
 # Wordcloud data for cloud comparison
 library(wordcloud)
 library(tm)
 
-posneg_wordcloud = c(
+posneg_wordcloud <- c(
   paste(tweets.df[allemotions$positive > 0], collapse=" "),
   paste(tweets.df[allemotions$negative > 0], collapse=" ")
 )
 
 # Create corpus for text mining 
-corpus = Corpus(VectorSource(posneg_wordcloud))
+corpus <- Corpus(VectorSource(posneg_wordcloud))
 
 # Remove stopwords 
-corpus = tm_map(corpus, removeWords, c(stopwords("english")))
+corpus <- tm_map(corpus, removeWords, c(stopwords("english")))
 
 # Create term document matrix
-tdm = TermDocumentMatrix(corpus)
+tdm <- TermDocumentMatrix(corpus)
 
 # Convert as matrix
 tdm <- as.matrix(tdm)
@@ -146,19 +146,19 @@ library(wordcloud)
 library(tm)
 
 # Wordcloud data for cloud comparison
-trustfear_wordcloud = c(
+trustfear_wordcloud <- c(
   paste(tweets.df[allemotions$trust > 0], collapse=" "),
   paste(tweets.df[allemotions$fear > 0], collapse=" ")
 )
 
 # Create corpus for text mining 
-corpus2 = Corpus(VectorSource(trustfear_wordcloud))
+corpus2 <- Corpus(VectorSource(trustfear_wordcloud))
 
 # Remove stopwords 
-corpus2 = tm_map(corpus2, removeWords, c(stopwords("english")))
+corpus2 <- tm_map(corpus2, removeWords, c(stopwords("english")))
 
 # Create term document matrix
-tdm2 = TermDocumentMatrix(corpus2)
+tdm2 <- TermDocumentMatrix(corpus2)
 
 # Convert as matrix
 tdm2 <- as.matrix(tdm2)
@@ -226,9 +226,9 @@ emotion_plot2 <- plot_ly(sona_emotions2_sum,
                                                  "orange", "rgb(30,187,215)",
                                                  "rgb(254,46,46)", "rgb(254,87,87))", 
                                                  "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
-                                                     layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
-                                                     xaxis = list(title = ""),
-                                                     showlegend = FALSE)
+                                 layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
+                                         xaxis = list(title = ""),
+                                         showlegend = FALSE)
 
 emotion_plot2
 ```

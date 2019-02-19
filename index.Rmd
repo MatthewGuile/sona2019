@@ -1,0 +1,244 @@
+---
+title: "Sentiment Analysis of Twitter's reaction to #SONA2019"
+output: html_notebook
+---
+
+Cyril Ramaphosa, the current president of South Africa, gave his state of the nation address to parliament on the 7 February 2019. His political party, the African National Congress, were initially considered to be pioneers of hope and prosperity for a new South Africa in the wake of the apartheid <cite>[1]</cite>. More recently, the African National Congress has become synonymous with political corruption and greed <cite>[2]</cite>. 
+
+Given South Africa's storied past, I decided to perform a sentiment analysis on the reaction to the presidents latest state of the nation address by analysing tweets using the hashtag #SONA2019. 
+
+# Install required packages
+```{r}
+# install.packages("magrittr")
+# install.packages("plotly")
+# install.packages("tm")
+# install.packages("syuzhet")
+# install.packages("wordcloud")
+```
+# Get and clean data
+Using the Rtweet package in combination with twitter's developer API, I obtained 18,000 tweets relating to #SONA2019. The data was then saved as a .csv file for the purpose of analysis.   
+```{r}
+# Load tweets obtained with twitter developer API
+tweets.df <- read.csv("sona2019.csv", stringsAsFactors = FALSE, row.names = 1)
+
+# Write a function to clean the tweets
+clean.tweets <- function(doc) {
+  doc <- gsub("http.*","",  doc)
+  doc <- gsub("https.*","", doc)
+  doc <- gsub("#.*","",doc)
+  doc <- gsub("@.*","",doc)
+  doc <- gsub("[[:punct:]]", "", doc)
+  doc <- gsub("rt", "", doc)
+  doc <- gsub("^ ", "", doc)
+  doc <- iconv(doc, "UTF-8", "ASCII", sub = "")
+  return(doc)
+}
+
+# Apply function
+tweets.df <- sapply(tweets.df, clean.tweets)
+
+# Convert all words to lower case
+tweets.df <- sapply(tweets.df, tolower)
+```
+# Sentiment Analysis
+Sentiment analysis uses Natural Language Processing and Text Mining techniques in order to gauge the underlying attitudes and emotions in text. Sentiment is typically analysed in terms of polarity, referring to how positive or negative the sentiment expressed is <cite>[3]</cite>. The Syuzhet package in R allows for the classification of sentiment in terms of 8 additional categories: trust, surprise, joy, anticipation, fear, disgust, anger and sadness.   
+```{r}
+library(magrittr) 
+library(plotly) 
+library(syuzhet) 
+
+# Perform sentiment analysis using the syuzhet library
+allemotions <- get_nrc_sentiment(tweets.df)
+
+# Create a variable with just the positive and negative emotions
+sona_posneg <- allemotions %>%
+               select("positive", "negative")
+
+# Create a dataframe with count of sentiment in descending order
+posneg_bar <- colSums(sona_posneg) 
+posneg_sum <- data.frame(count = posneg_bar, sona_posneg = names(posneg_bar))
+posneg_sum$sona_posneg <- factor(posneg_sum$sona_posneg, 
+                                 levels = posneg_sum$sona_posneg[order(
+                                 posneg_sum$count, decreasing = TRUE)])
+
+# Visualise sentiment analysis
+posneg_plot <- plot_ly(posneg_sum,
+                        x = ~sona_posneg, 
+                        y = ~count, 
+                        type = "bar", 
+                        marker = list(color = c("blue", "red"))) %>%
+                        layout (title = "Count of Sentiment Polarity for #SONA2019", 
+                                xaxis = list(title = ""),
+                                showlegend = FALSE)
+                       
+
+posneg_plot
+```
+The initial exploration of sentiment shows that the polarity is heavily skewed towards positive. However, before drawing any conclusions from this, let's dig deeper into the data and see how the sentiment is distributed across the eight sentiment categories. 
+```{r}
+library(magrittr) 
+library(plotly) 
+
+# Create variable with a spectrum of emotions 
+sona_emotions <- allemotions %>%
+                 select("trust", "anticipation", "fear", "joy", "anger", "sadness", "surprise", "disgust")
+
+# Create a dataframe that displays sentiment in descending order
+emotion_bar <- colSums(sona_emotions) 
+emotion_sum <- data.frame(count = emotion_bar, sona_emotions = names(emotion_bar))
+emotion_sum$sona_emotions <- factor(emotion_sum$sona_emotions, 
+                                    levels = emotion_sum$sona_emotions[order(
+                                    emotion_sum$count, decreasing = TRUE)])
+
+# Visualise sentiment analysis
+emotion_plot <- plot_ly(emotion_sum,
+                        x = ~sona_emotions, 
+                        y = ~count, 
+                        type = "bar", 
+                        marker = list(color = c("cyan", "rgb(24,154,211)", 
+                                                "orange", "rgb(30,187,215)",
+                                                "rgb(254,46,46)", "rgb(254,87,87))", 
+                                                "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
+                        layout (title = "Count of Emotions for #SONA2019", 
+                                xaxis = list(title = ""),
+                                showlegend = FALSE)
+emotion_plot
+
+
+```
+The above chart shows one clear outlier with the category <i>trust</i> totalling at 6628 which is 1.6 times larger than the second highest category <i>anticipation</i>. Additionally, <i>trust</i> more than doubles the total of the closest negative category <i>fear</i>. To find out why this is the case, let's explore the words that makeup each sentiment score using the Wordcloud package.
+```{r}
+# Wordcloud data for cloud comparison
+library(wordcloud)
+library(tm)
+
+posneg_wordcloud <- c(
+  paste(tweets.df[allemotions$positive > 0], collapse=" "),
+  paste(tweets.df[allemotions$negative > 0], collapse=" ")
+)
+
+# Create corpus for text mining 
+corpus <- Corpus(VectorSource(posneg_wordcloud))
+
+# Remove stopwords 
+corpus <- tm_map(corpus, removeWords, c(stopwords("english")))
+
+# Create term document matrix
+tdm <- TermDocumentMatrix(corpus)
+
+# Convert as matrix
+tdm <- as.matrix(tdm)
+tdmnew <- tdm[nchar(rownames(tdm)) < 11,]
+
+# Column name binding
+colnames(tdm) <- c("positive", "negative")
+colnames(tdmnew) <- colnames(tdm)
+comparison.cloud(tdmnew, random.order=FALSE,
+                 colors = c("blue", "red"),
+                 title.size = 1,
+                 max.words = 200, 
+                 scale = c(2.5, 0.4),
+                 rot.per = 0.4)
+```
+The word <i>president</i> is immediately noticable as a word that needs to be flagged. Tweets referring to #SONA2019 will likely be referencing the word <i>president</i> due to the context of the hashtag. This is concerning as it disproportately skews the results towards the positive end of the polartiy spectrum. To illustrate this further, let's compare <i>trust</i> and <i>fear</i>. 
+```{r}
+library(wordcloud)
+library(tm)
+
+# Wordcloud data for cloud comparison
+trustfear_wordcloud <- c(
+  paste(tweets.df[allemotions$trust > 0], collapse=" "),
+  paste(tweets.df[allemotions$fear > 0], collapse=" ")
+)
+
+# Create corpus for text mining 
+corpus2 <- Corpus(VectorSource(trustfear_wordcloud))
+
+# Remove stopwords 
+corpus2 <- tm_map(corpus2, removeWords, c(stopwords("english")))
+
+# Create term document matrix
+tdm2 <- TermDocumentMatrix(corpus2)
+
+# Convert as matrix
+tdm2 <- as.matrix(tdm2)
+tdmnew2 <- tdm2[nchar(rownames(tdm2)) < 11,]
+
+# Column name binding
+colnames(tdm2) <- c("trust", "fear")
+colnames(tdmnew2) <- colnames(tdm2)
+
+# Plot comparison wordcloud 
+comparison.cloud(tdmnew2, random.order=FALSE,
+                 colors = c("cyan", "orange"),
+                 title.size = 1,
+                 max.words = 200, 
+                 scale = c(2.5, 0.4),
+                 rot.per = 0.4)
+```
+As you can see, the word <i>president</i> in particular accounts for a large portion of both the <i>trust</i> and <i>positive</i> scores. Removing contextual words allows for a more accurate sentiment score.
+
+```{r}
+library(magrittr)
+library(plotly) 
+library(syuzhet)
+library(tm)
+
+# Create corpus for text mining 
+corpus3 <- Corpus(VectorSource(tweets.df))
+
+# Convert to lower case, remove punctuation, numbers, stopwords and undesirable words
+corpus3 <- tm_map(corpus3, tolower)
+corpus3 <- tm_map(corpus3, removePunctuation)
+corpus3 <- tm_map(corpus3, removeWords, c(stopwords("english"), "south", "africa", "sona2019", "ramaphosa",
+                                                                "ramaphosas", "president", "presidents", 
+                                                                "cyril", "eff", "anc", "da", "cope", 
+                                                                "sona19", "speech", "sona", "malema", 
+                                                                "parliament", "ufufuf", "scorpions", 
+                                                                "thabang", "mps", "mp", "julius"))
+corpus3 <- tm_map(corpus3, removeNumbers)
+
+
+# Concatenate tokens by document, create data frame
+tweets.df2 <- data.frame(text = sapply(corpus3, paste, collapse = " "), stringsAsFactors = FALSE)
+
+# Perform sentiment analysis using the syuzhet library
+tdm3emotions <- get_nrc_sentiment(tweets.df2$text)
+
+sona_emotions2 <- tdm3emotions%>%
+                  select("trust", "anticipation", "fear", "joy", "anger", "sadness", "surprise", "disgust")
+
+# Create a dataframe with count of sentiment in descending order
+sona_emotions2_bar <- colSums(sona_emotions2) 
+sona_emotions2_sum <- data.frame(count = sona_emotions2_bar, sona_emotions2 = names(sona_emotions2_bar))
+sona_emotions2_sum$sona_emotions2 <- factor(sona_emotions2_sum$sona_emotions2, 
+                                     levels = sona_emotions2_sum$sona_emotions2[order(
+                                     sona_emotions2_sum$count, decreasing = TRUE)])
+
+# Visualise sentiment analysis
+library(plotly)
+
+emotion_plot2 <- plot_ly(sona_emotions2_sum,
+                         x = ~sona_emotions2, 
+                         y = ~count, 
+                         type = "bar", 
+                         marker = list(color = c("cyan", "rgb(24,154,211)", 
+                                                 "orange", "rgb(30,187,215)",
+                                                 "rgb(254,46,46)", "rgb(254,87,87))", 
+                                                 "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
+                                 layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
+                                         xaxis = list(title = ""),
+                                         showlegend = FALSE)
+
+emotion_plot2
+```
+After removing a list of contextual words, the distrubition of sentiment is less skewed towards <i>trust</i> than it was previously, dropping from a total score of 6628 to 4913. This illustrates the extent that contextual words can bias the results of sentiment analysis. Negative sentiments such as <i>fear</i>, <i>anger</i> and <i>sadness</i> dominate the middle range of sentiment scores. This shows the polarity in the response to Cyril Ramamphosa's state of the nation address. 
+
+# Limitations 
+Despite the fact that the state of the nation address is delivered in English, it is important to note that South Africa has 11 official languages. Less than 10% of the population speaks english as their home language, whereas IsiZulu and IsiXhosa are the most spoken home languages at 22.7% and 16% respectively <cite>[4]</cite>. Only English text was mined for the purposes of this analysis, thus the results may not reflect the sentiment of the entire population. 
+
+# References
+[1] - https://www.sahistory.org.za/archive/1994-president-mandela-state-nation-address-24-may-1994-after-national-elections <br>
+[2] - https://www.iol.co.za/news/politics/anc-and-corruption-are-bedfellows-18833154<br>
+[3] - https://monkeylearn.com/sentiment-analysis/<br>
+[4] - https://southafrica-info.com/arts-culture/11-languages-south-africa/
