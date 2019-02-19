@@ -1,7 +1,5 @@
 library(rtweet)
-library(tidytext)
 library(magrittr)
-library(dplyr)
 library(tm)
 library(ggplot2)
 library(syuzhet)
@@ -60,7 +58,7 @@ posneg_bar <- colSums(sona_posneg)
 posneg_sum <- data.frame(count = posneg_bar, sona_posneg = names(posneg_bar))
 posneg_sum$sona_posneg <- factor(posneg_sum$sona_posneg, 
                                  levels = posneg_sum$sona_posneg[order(
-                                 posneg_sum$count, decreasing = TRUE)])
+                                   posneg_sum$count, decreasing = TRUE)])
 
 # Visualise sentiment analysis
 posneg_plot <- plot_ly(posneg_sum,
@@ -95,9 +93,9 @@ emotion_plot <- plot_ly(emotion_sum,
                                                 "orange", "rgb(30,187,215)",
                                                 "rgb(254,46,46)", "rgb(254,87,87))", 
                                                 "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
-                                layout (title = "Count of Emotions for #SONA2019", 
-                                        xaxis = list(title = ""),
-                                        showlegend = FALSE)
+  layout (title = "Count of Emotions for #SONA2019", 
+          xaxis = list(title = ""),
+          showlegend = FALSE)
 emotion_plot
 
 # Create wordcloud showing key positive and negative words
@@ -210,8 +208,8 @@ emotion_plot2 <- plot_ly(sona_emotions2_sum,
                                                  "orange", "rgb(30,187,215)",
                                                  "rgb(254,46,46)", "rgb(254,87,87))", 
                                                  "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
-                                 layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
-                                         xaxis = list(title = ""),
-                                         showlegend = FALSE)
+  layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
+          xaxis = list(title = ""),
+          showlegend = FALSE)
 
 emotion_plot2
