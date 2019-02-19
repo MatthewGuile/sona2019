@@ -11,11 +11,10 @@ library(wordcloud)
 # twitter api authoirsation 
 # create_token(
 # app = "sona2019_analysis",
-# consumer_key = "xqfjOGXzkR3fqZsThG3T85MHa",
-# consumer_secret = "bRnlVfihD68FMISPD1wOW44j9rou4QFQ75qHjqNkR33IgoAaye",
-# access_token = "409115976-BNvV3sNzvWSPR6KyAX5Qb1nDQSvSltdYQGtfSYFl",
-# access_secret = "EEnuvq64MNj9wycpWd2e16879HHoCI9JP4vR0N7jDFyUw")
-
+# consumer_key = "xxx",
+# consumer_secret = "xxx",
+# access_token = "xxx",
+# access_secret = "xxx")
 
 # search twitter for relevant tweets
 # tweets <- search_tweets(
@@ -23,13 +22,13 @@ library(wordcloud)
 
 # get text only from tweets
 # tweets.df <- tweets %>% 
-#  select(text)
+#              select(text)
 
 # write.csv(tweets.df, file = "sona_tweets.csv")
 
 tweets.df <- read.csv("sona2019.csv", stringsAsFactors = FALSE, row.names = 1)
 
-# write a function to clean the tweets
+# Write a function to clean the tweets
 clean.tweets <- function(doc) {
   doc <- gsub("http.*","",  doc)
   doc <- gsub("https.*","", doc)
@@ -38,155 +37,181 @@ clean.tweets <- function(doc) {
   doc <- gsub("[[:punct:]]", "", doc)
   doc <- gsub("rt", "", doc)
   doc <- gsub("^ ", "", doc)
-  doc <- iconv(doc, "UTF-8", "ASCII", sub="")
+  doc <- iconv(doc, "UTF-8", "ASCII", sub = "")
   return(doc)
 }
 
-
-
-# apply function
+# Apply function
 tweets.df <- sapply(tweets.df, clean.tweets)
+
+# Convert all words to lower case
+tweets.df <- sapply(tweets.df, tolower)
+
 
 # Perform sentiment analysis using the syuzhet library
 allemotions <- get_nrc_sentiment(tweets.df)
 
+# Create a variable with just the positive and negative emotions
+sona_posneg <- allemotions %>%
+  select("positive", "negative")
+
+# Create a dataframe with count of sentiment in descending order
+posneg_bar <- colSums(sona_posneg) 
+posneg_sum <- data.frame(count = posneg_bar, sona_posneg = names(posneg_bar))
+posneg_sum$sona_posneg <- factor(posneg_sum$sona_posneg, 
+                                 levels = posneg_sum$sona_posneg[order(
+                                 posneg_sum$count, decreasing = TRUE)])
+
+# Visualise sentiment analysis
+posneg_plot <- plot_ly(posneg_sum,
+                       x = ~sona_posneg, 
+                       y = ~count, 
+                       type = "bar", 
+                       marker = list(color = c("blue", "red"))) %>%
+  layout (title = "Count of Sentiment Polarity for #SONA2019", 
+          xaxis = list(title = ""),
+          showlegend = FALSE)
 
 
-
-
-
-
+posneg_plot
 
 # Create variable with a spectrum of emotions 
 sona_emotions <- allemotions %>%
-                 select("trust", "anticipation", "fear", "joy", "anger", "sadness", "surprise", "disgust")
-# Create a dataframe that summarises sentiment in descending order
-emo_bar <- colSums(sona_emotions) 
-emo_sum <- data.frame(count=emo_bar, sona_emotions=names(emo_bar))
-emo_sum$sona_emotions <- factor(emo_sum$sona_emotions, levels=emo_sum$sona_emotions[order(emo_sum$count, decreasing = TRUE)])
+  select("trust", "anticipation", "fear", "joy", "anger", "sadness", "surprise", "disgust")
 
-# visualise the emotions from NRC sentiments
+# Create a dataframe that displays sentiment in descending order
+emotion_bar <- colSums(sona_emotions) 
+emotion_sum <- data.frame(count = emotion_bar, sona_emotions = names(emotion_bar))
+emotion_sum$sona_emotions <- factor(emotion_sum$sona_emotions, 
+                                    levels = emotion_sum$sona_emotions[order(
+                                      emotion_sum$count, decreasing = TRUE)])
 
-library(plotly)
-
-emotion_plot <- plot_ly(emo_sum,
-             x=~sona_emotions, 
-             y=~count, 
-             type="bar", 
-             color=~sona_emotions) %>%
-             layout (
-                xaxis = list(
-                     title=""), showlegend=FALSE,
-             title="Emotion Type for hashtag: #SONA2019")
-
+# Visualise sentiment analysis
+emotion_plot <- plot_ly(emotion_sum,
+                        x = ~sona_emotions, 
+                        y = ~count, 
+                        type = "bar", 
+                        marker = list(color = c("cyan", "rgb(24,154,211)", 
+                                                "orange", "rgb(30,187,215)",
+                                                "rgb(254,46,46)", "rgb(254,87,87))", 
+                                                "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
+                                layout (title = "Count of Emotions for #SONA2019", 
+                                        xaxis = list(title = ""),
+                                        showlegend = FALSE)
 emotion_plot
-
-# Create dataframe of the words in 
-# word.df <- as.vector(tweets.df)
-# emotion.df <- get_nrc_sentiment(word.df)
-# emotion.df2 <- cbind(tweets.df, emotion.df)
-
-# head(emotion.df)
-
 
 # Create wordcloud showing key positive and negative words
 
-# Wordcloud data
+# Wordcloud data for cloud comparison
 
-sona_posneg = c(
+posneg_wordcloud = c(
   paste(tweets.df[allemotions$positive > 0], collapse=" "),
   paste(tweets.df[allemotions$negative > 0], collapse=" ")
 )
 
-# create corpus
-corpus = Corpus(VectorSource(sona_posneg))
+# Create corpus for text mining 
+corpus = Corpus(VectorSource(posneg_wordcloud))
 
-# remove punctuation, convert every word in lower case and remove stop words
-
-corpus = tm_map(corpus, tolower)
-corpus = tm_map(corpus, removePunctuation)
+# Remove stopwords 
 corpus = tm_map(corpus, removeWords, c(stopwords("english")))
 
-# create document term matrix
-
+# Create term document matrix
 tdm = TermDocumentMatrix(corpus)
 
-# convert as matrix
-tdm = as.matrix(tdm)
+# Convert as matrix
+tdm <- as.matrix(tdm)
 tdmnew <- tdm[nchar(rownames(tdm)) < 11,]
 
-# column name binding
+# Column name binding
 colnames(tdm) <- c("positive", "negative")
 colnames(tdmnew) <- colnames(tdm)
 comparison.cloud(tdmnew, random.order=FALSE,
                  colors = c("blue", "red"),
-                 title.size=1,
-                 max.words=250, 
-                 scale=c(2.5, 0.4),
-                 rot.per=0.4)
-
-
+                 title.size = 1,
+                 max.words = 200, 
+                 scale = c(2.5, 0.4),
+                 rot.per = 0.4)
 
 # Lets look at trust and fear
 
-sona_trustfear = c(
+library(wordcloud)
+library(tm)
+
+# Wordcloud data for cloud comparison
+trustfear_wordcloud = c(
   paste(tweets.df[allemotions$trust > 0], collapse=" "),
-  paste(tweets.df[allemotions$fear > 0], collapse=" ")
-)
+  paste(tweets.df[allemotions$fear > 0], collapse=" "))
 
-# create corpus
-corpus2 = Corpus(VectorSource(sona_trustfear))
+# Create corpus for text mining 
+corpus2 = Corpus(VectorSource(trustfear_wordcloud))
 
-# remove punctuation, convert every word in lower case and remove stop words
+# Remove stopwords 
+corpus2 = tm_map(corpus2, removeWords, c(stopwords("english")))
 
-corpus2 = tm_map(corpus, tolower)
-corpus2 = tm_map(corpus, removePunctuation)
-corpus2 = tm_map(corpus, removeWords, c(stopwords("english")))
-
-# create document term matrix
-
+# Create term document matrix
 tdm2 = TermDocumentMatrix(corpus2)
 
-# convert as matrix
-tdm2 = as.matrix(tdm)
+# Convert as matrix
+tdm2 <- as.matrix(tdm2)
 tdmnew2 <- tdm2[nchar(rownames(tdm2)) < 11,]
 
-# column name binding
+# Column name binding
 colnames(tdm2) <- c("trust", "fear")
 colnames(tdmnew2) <- colnames(tdm2)
-comparison.cloud(tdmnew, random.order=FALSE,
-                 colors = c("purple", "black"),
-                 title.size=,
-                 max.words=250, 
-                 scale=c(2.5, 0.4),
-                 rot.per=0.4)
 
-# Term Document Matrix 
-
-
+# Plot comparison wordcloud 
+comparison.cloud(tdmnew2, random.order=FALSE,
+                 colors = c("cyan", "orange"),
+                 title.size = 1,
+                 max.words = 200, 
+                 scale = c(2.5, 0.4),
+                 rot.per = 0.4)
 
 
-# Text mining 
+# Remove words that bias results
+
+# Create corpus for text mining 
+corpus3 <- Corpus(VectorSource(tweets.df))
+
+# Convert to lower case, remove punctuation, numbers, stopwords and undesirable words
+corpus3 <- tm_map(corpus3, tolower)
+corpus3 <- tm_map(corpus3, removePunctuation)
+corpus3 <- tm_map(corpus3, removeWords, c(stopwords("english"), "south", "africa", "sona2019", "ramaphosa",
+                                          "ramaphosas", "president", "presidents", 
+                                          "cyril", "eff", "anc", "da", "cope", 
+                                          "sona19", "speech", "sona", "malema", 
+                                          "parliament", "ufufuf", "scorpions", 
+                                          "thabang", "mps", "mp", "julius"))
+corpus3 <- tm_map(corpus3, removeNumbers)
 
 
+# Concatenate tokens by document, create data frame
+tweets.df2 <- data.frame(text = sapply(corpus3, paste, collapse = " "), stringsAsFactors = FALSE)
 
+# Perform sentiment analysis using the syuzhet library
+tdm3emotions <- get_nrc_sentiment(tweets.df2$text)
 
+sona_emotions2 <- tdm3emotions%>%
+  select("trust", "anticipation", "fear", "joy", "anger", "sadness", "surprise", "disgust")
 
+# Create a dataframe with count of sentiment in descending order
+sona_emotions2_bar <- colSums(sona_emotions2) 
+sona_emotions2_sum <- data.frame(count = sona_emotions2_bar, sona_emotions2 = names(sona_emotions2_bar))
+sona_emotions2_sum$sona_emotions2 <- factor(sona_emotions2_sum$sona_emotions2, 
+                                            levels = sona_emotions2_sum$sona_emotions2[order(sona_emotions2_sum$count, decreasing = TRUE)])
 
-# load stopword data from tidytext
-#data("stop_words")
+# Visualise sentiment analysis
 
-# create list of undesireable words 
-#undesirable_words <- c("south", "africa", "sona2019", "ramaphosa", "president", 
-#                      "cyril", "eff", "anc", "da", "cope", "sona19", "speech", 
-#                      "zuma", "malema", "2019")
+emotion_plot2 <- plot_ly(sona_emotions2_sum,
+                         x = ~sona_emotions2, 
+                         y = ~count, 
+                         type = "bar", 
+                         marker = list(color = c("cyan", "rgb(24,154,211)", 
+                                                 "orange", "rgb(30,187,215)",
+                                                 "rgb(254,46,46)", "rgb(254,87,87))", 
+                                                 "rgb(113,199,236)", "rgb(254,129,129)"))) %>%
+                                 layout (title = "Count of Emotions (Adjusted) for #SONA2019", 
+                                         xaxis = list(title = ""),
+                                         showlegend = FALSE)
 
-# remove stop words and undesirable words
-#sona_tweets <- tweets.df %>%
-#  dplyr::select(text) %>%
-#  unnest_tokens(word, text) %>%
-#  anti_join(stop_words) %>%
-#  distinct() %>%  
-#  filter(!word %in% undesirable_words) %>%
-#  filter(nchar(word) > 3)
-
+emotion_plot2

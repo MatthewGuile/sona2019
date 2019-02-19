@@ -245,15 +245,9 @@ $(document).ready(function () {
 <h1>Install Required Packages</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBpbnN0YWxsLnBhY2thZ2VzKFwiZHBseXJcIilcbiMgaW5zdGFsbC5wYWNrYWdlcyhcIm1hZ3JpdHRyXCIpXG4jIGluc3RhbGwucGFja2FnZXMoXCJwbG90bHlcIilcbiMgaW5zdGFsbC5wYWNrYWdlcyhcInJ0d2VldFwiKVxuIyBpbnN0YWxsLnBhY2thZ2VzKFwidGlkeXRleHRcIilcbiMgaW5zdGFsbC5wYWNrYWdlcyhcInRtXCIpXG4jIGluc3RhbGwucGFja2FnZXMoXCJzeXV6aGV0XCIpXG4jIGluc3RhbGwucGFja2FnZXMoXCJ3b3JkY2xvdWRcIilcbmBgYCJ9 -->
-<pre class="r"><code># install.packages(&quot;dplyr&quot;)
-# install.packages(&quot;magrittr&quot;)
-# install.packages(&quot;plotly&quot;)
-# install.packages(&quot;rtweet&quot;)
-# install.packages(&quot;tidytext&quot;)
-# install.packages(&quot;tm&quot;)
-# install.packages(&quot;syuzhet&quot;)
-# install.packages(&quot;wordcloud&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBpbnN0YWxsLnBhY2thZ2VzKFxcZHBseXJcXClcbiMgaW5zdGFsbC5wYWNrYWdlcyhcXG1hZ3JpdHRyXFwpXG4jIGluc3RhbGwucGFja2FnZXMoXFxwbG90bHlcXClcbiMgaW5zdGFsbC5wYWNrYWdlcyhcXHJ0d2VldFxcKVxuIyBpbnN0YWxsLnBhY2thZ2VzKFxcdGlkeXRleHRcXClcbiMgaW5zdGFsbC5wYWNrYWdlcyhcXHRtXFwpXG4jIGluc3RhbGwucGFja2FnZXMoXFxzeXV6aGV0XFwpXG4jIGluc3RhbGwucGFja2FnZXMoXFx3b3JkY2xvdWRcXClcbmBgYFxuYGBgIn0= -->
+<p><code>r</code>r # install.packages() # install.packages() # install.packages() # install.packages() # install.packages() # install.packages() # install.packages() # install.packages()</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -262,14 +256,9 @@ $(document).ready(function () {
 <h1>Load Libraries</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydHdlZXQpXG5saWJyYXJ5KHRpZHl0ZXh0KVxubGlicmFyeSh0bSlcbmxpYnJhcnkobWFncml0dHIpXG5saWJyYXJ5KGRwbHlyKVxubGlicmFyeShzeXV6aGV0KVxubGlicmFyeSh3b3JkY2xvdWQpXG5gYGAifQ== -->
-<pre class="r"><code>library(rtweet)
-library(tidytext)
-library(tm)
-library(magrittr)
-library(dplyr)
-library(syuzhet)
-library(wordcloud)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeShydHdlZXQpXG5saWJyYXJ5KHRpZHl0ZXh0KVxubGlicmFyeSh0bSlcbmxpYnJhcnkobWFncml0dHIpXG5saWJyYXJ5KGRwbHlyKVxubGlicmFyeShzeXV6aGV0KVxubGlicmFyeSh3b3JkY2xvdWQpXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r library(rtweet) library(tidytext) library(tm) library(magrittr) library(dplyr) library(syuzhet) library(wordcloud)</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -278,27 +267,8 @@ library(wordcloud)</code></pre>
 <h1>Get and Clean Data</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIHR3ZWV0cyBvYnRhaW5lZCB3aXRoIHR3aXR0ZXIgZGV2ZWxvcGVyIEFQSVxudHdlZXRzLmRmIDwtIHJlYWQuY3N2KFwic29uYTIwMTkuY3N2XCIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSwgcm93Lm5hbWVzID0gMSlcbiMgV3JpdGUgYSBmdW5jdGlvbiB0byBjbGVhbiB0aGUgdHdlZXRzXG5jbGVhbi50d2VldHMgPC0gZnVuY3Rpb24oZG9jKSB7XG4gIGRvYyA8LSBnc3ViKFwiaHR0cC4qXCIsXCJcIiwgIGRvYylcbiAgZG9jIDwtIGdzdWIoXCJodHRwcy4qXCIsXCJcIiwgZG9jKVxuICBkb2MgPC0gZ3N1YihcIiZhbXBcIiwgXCJcIiwgZG9jKVxuICBkb2MgPC0gZ3N1YihcIiZhbXBcIiwgXCJcIiwgZG9jKVxuICBkb2MgPC0gZ3N1YihcIihSVHx2aWEpKCg/OlxcXFxiXFxcXFcqQFxcXFx3KykrKVwiLCBcIlwiLCBkb2MpXG4gIGRvYyA8LSBnc3ViKFwiQFxcXFx3K1wiLCBcIlwiLCBkb2MpXG4gIGRvYyA8LSBnc3ViKFwiW1s6cHVuY3Q6XV1cIiwgXCJcIiwgZG9jKVxuICBkb2MgPC0gZ3N1YihcIltbOmRpZ2l0Ol1dXCIsIFwiXCIsIGRvYylcbiAgZG9jIDwtIGdzdWIoXCJodHRwXFxcXHcrXCIsIFwiXCIsIGRvYylcbiAgZG9jIDwtIGdzdWIoXCJbIFxcdF17Mix9XCIsIFwiXCIsIGRvYylcbiAgZG9jIDwtIGdzdWIoXCJeXFxcXHMrfFxcXFxzKyRcIiwgXCJcIiwgZG9jKVxuICBkb2MgPC0gaWNvbnYoZG9jLCBcIlVURi04XCIsIFwiQVNDSUlcIiwgc3ViPVwiXCIpXG4gIHJldHVybihkb2MpXG59XG4jIEFwcGx5IGZ1bmN0aW9uXG50d2VldHMuZGYkdGV4dCA8LSBzYXBwbHkodHdlZXRzLmRmJHRleHQsIGNsZWFuLnR3ZWV0cylcbmBgYCJ9 -->
-<pre class="r"><code># Load tweets obtained with twitter developer API
-tweets.df &lt;- read.csv(&quot;sona2019.csv&quot;, stringsAsFactors = FALSE, row.names = 1)
-# Write a function to clean the tweets
-clean.tweets &lt;- function(doc) {
-  doc &lt;- gsub(&quot;http.*&quot;,&quot;&quot;,  doc)
-  doc &lt;- gsub(&quot;https.*&quot;,&quot;&quot;, doc)
-  doc &lt;- gsub(&quot;&amp;amp&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;&amp;amp&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;(RT|via)((?:\\b\\W*@\\w+)+)&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;@\\w+&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;[[:punct:]]&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;[[:digit:]]&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;http\\w+&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;[ \t]{2,}&quot;, &quot;&quot;, doc)
-  doc &lt;- gsub(&quot;^\\s+|\\s+$&quot;, &quot;&quot;, doc)
-  doc &lt;- iconv(doc, &quot;UTF-8&quot;, &quot;ASCII&quot;, sub=&quot;&quot;)
-  return(doc)
-}
-# Apply function
-tweets.df$text &lt;- sapply(tweets.df$text, clean.tweets)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBMb2FkIHR3ZWV0cyBvYnRhaW5lZCB3aXRoIHR3aXR0ZXIgZGV2ZWxvcGVyIEFQSVxudHdlZXRzLmRmIDwtIHJlYWQuY3N2KFxcc29uYTIwMTkuY3N2XFwsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSwgcm93Lm5hbWVzID0gMSlcbiMgV3JpdGUgYSBmdW5jdGlvbiB0byBjbGVhbiB0aGUgdHdlZXRzXG5jbGVhbi50d2VldHMgPC0gZnVuY3Rpb24oZG9jKSB7XG4gIGRvYyA8LSBnc3ViKFxcaHR0cC4qXFwsXFxcXCwgIGRvYylcbiAgZG9jIDwtIGdzdWIoXFxodHRwcy4qXFwsXFxcXCwgZG9jKVxuICBkb2MgPC0gZ3N1YihcXCZhbXBcXCwgXFxcXCwgZG9jKVxuICBkb2MgPC0gZ3N1YihcXCZhbXBcXCwgXFxcXCwgZG9jKVxuICBkb2MgPC0gZ3N1YihcXChSVHx2aWEpKCg/OlxcXFxiXFxcXFcqQFxcXFx3KykrKVxcLCBcXFxcLCBkb2MpXG4gIGRvYyA8LSBnc3ViKFxcQFxcXFx3K1xcLCBcXFxcLCBkb2MpXG4gIGRvYyA8LSBnc3ViKFxcW1s6cHVuY3Q6XV1cXCwgXFxcXCwgZG9jKVxuICBkb2MgPC0gZ3N1YihcXFtbOmRpZ2l0Ol1dXFwsIFxcXFwsIGRvYylcbiAgZG9jIDwtIGdzdWIoXFxodHRwXFxcXHcrXFwsIFxcXFwsIGRvYylcbiAgZG9jIDwtIGdzdWIoXFxbIFxcdF17MlxuYGBgIn0= -->
+<p><code>r</code>r # Load tweets obtained with twitter developer API tweets.df &lt;- read.csv(2019.csv, stringsAsFactors = FALSE, row.names = 1) # Write a function to clean the tweets clean.tweets &lt;- function(doc) { doc &lt;- gsub(.<em>,\, doc) doc &lt;- gsub(.</em>,\, doc) doc &lt;- gsub(&amp;amp, \, doc) doc &lt;- gsub(&amp;amp, \, doc) doc &lt;- gsub((RT|via)((?:\b\W*@\w+)+), \, doc) doc &lt;- gsub(@\w+, \, doc) doc &lt;- gsub([[:punct:]], \, doc) doc &lt;- gsub([[:digit:]], \, doc) doc &lt;- gsub(\w+, \, doc) doc &lt;- gsub([ ]{2 ```</p>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -307,52 +277,40 @@ tweets.df$text &lt;- sapply(tweets.df$text, clean.tweets)</code></pre>
 <h1>Sentiment Analysis</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIHN5dXpoZXQgbGlicmFyeSBcblxubGlicmFyeShzeXV6aGV0KVxuXG4jIFBlcmZvcm0gc2VudGltZW50IGFuYWx5c2lzIHVzaW5nIHRoZSBzeXV6aGV0IGxpYnJhcnlcblxuYWxsZW1vdGlvbnMgPC0gZ2V0X25yY19zZW50aW1lbnQodHdlZXRzLmRmJHRleHQpXG5cbiMgQ3JlYXRlIHZhcmlhYmxlIHdpdGgganVzdCBwb3NpdGl2ZSBhbmQgbmVnYXRpdmUgZW1vdGlvbnMgXG5cbnNvbmFfcG9zbmVnIDwtIGFsbGVtb3Rpb25zICU+JVxuICAgICAgICAgICAgICAgc2VsZWN0KFwicG9zaXRpdmVcIiwgXCJuZWdhdGl2ZVwiKVxuXG4jIENyZWF0ZSB2YXJpYWJsZSB3aXRoIGEgc3BlY3RydW0gb2YgZW1vdGlvbnMgXG5cbnNvbmFfZW1vdGlvbnMgPC0gYWxsZW1vdGlvbnMgJT4lXG4gICAgICAgICAgICAgICAgIHNlbGVjdChcInRydXN0XCIsIFwiYW50aWNpcGF0aW9uXCIsIFwiZmVhclwiLCBcImpveVwiLCBcImFuZ2VyXCIsIFwic2FkbmVzc1wiLCBcInN1cnByaXNlXCIsIFwiZGlzZ3VzdFwiKVxuXG4jIENyZWF0ZSBhIGRhdGFmcmFtZSB0aGF0IHN1bW1hcmlzZXMgc2VudGltZW50IGluIGRlc2NlbmRpbmcgb3JkZXJcblxuZW1vdGlvbl9iYXIgPC0gY29sU3Vtcyhzb25hX2Vtb3Rpb25zKSBcbmVtb3Rpb25fc3VtIDwtIGRhdGEuZnJhbWUoY291bnQ9ZW1vdGlvbl9iYXIsIHNvbmFfZW1vdGlvbnM9bmFtZXMoZW1vdGlvbl9iYXIpKVxuZW1vdGlvbl9zdW0kc29uYV9lbW90aW9ucyA8LSBmYWN0b3IoZW1vdGlvbl9zdW0kc29uYV9lbW90aW9ucywgbGV2ZWxzPWVtb3Rpb25fc3VtJHNvbmFfZW1vdGlvbnNbb3JkZXIoZW1vdGlvbl9zdW0kY291bnQsIGRlY3JlYXNpbmcgPSBUUlVFKV0pXG5gYGAifQ== -->
-<pre class="r"><code># Load syuzhet library 
-
-library(syuzhet)
-
-# Perform sentiment analysis using the syuzhet library
-
-allemotions &lt;- get_nrc_sentiment(tweets.df$text)
-
-# Create variable with just positive and negative emotions 
-
-sona_posneg &lt;- allemotions %&gt;%
-               select(&quot;positive&quot;, &quot;negative&quot;)
-
-# Create variable with a spectrum of emotions 
-
-sona_emotions &lt;- allemotions %&gt;%
-                 select(&quot;trust&quot;, &quot;anticipation&quot;, &quot;fear&quot;, &quot;joy&quot;, &quot;anger&quot;, &quot;sadness&quot;, &quot;surprise&quot;, &quot;disgust&quot;)
-
-# Create a dataframe that summarises sentiment in descending order
-
-emotion_bar &lt;- colSums(sona_emotions) 
-emotion_sum &lt;- data.frame(count=emotion_bar, sona_emotions=names(emotion_bar))
-emotion_sum$sona_emotions &lt;- factor(emotion_sum$sona_emotions, levels=emotion_sum$sona_emotions[order(emotion_sum$count, decreasing = TRUE)])</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuIyBMb2FkIHN5dXpoZXQgbGlicmFyeSBcblxubGlicmFyeShzeXV6aGV0KVxuXG4jIFBlcmZvcm0gc2VudGltZW50IGFuYWx5c2lzIHVzaW5nIHRoZSBzeXV6aGV0IGxpYnJhcnlcblxuYWxsZW1vdGlvbnMgPC0gZ2V0X25yY19zZW50aW1lbnQodHdlZXRzLmRmJHRleHQpXG5cbiMgQ3JlYXRlIHZhcmlhYmxlIHdpdGgganVzdCBwb3NpdGl2ZSBhbmQgbmVnYXRpdmUgZW1vdGlvbnMgXG5cbnNvbmFfcG9zbmVnIDwtIGFsbGVtb3Rpb25zICU+JVxuICAgICAgICAgICAgICAgc2VsZWN0KFxccG9zaXRpdmVcXCwgXFxuZWdhdGl2ZVxcKVxuXG4jIENyZWF0ZSB2YXJpYWJsZSB3aXRoIGEgc3BlY3RydW0gb2YgZW1vdGlvbnMgXG5cbnNvbmFfZW1vdGlvbnMgPC0gYWxsZW1vdGlvbnMgJT4lXG4gICAgICAgICAgICAgICAgIHNlbGVjdChcXHRydXN0XFwsIFxcYW50aWNpcGF0aW9uXFwsIFxcZmVhclxcLCBcXGpveVxcLCBcXGFuZ2VyXFwsIFxcc2FkbmVzc1xcLCBcXHN1cnByaXNlXFwsIFxcZGlzZ3VzdFxcKVxuXG4jIENyZWF0ZSBhIGRhdGFmcmFtZSB0aGF0IHN1bW1hcmlzZXMgc2VudGltZW50IGluIGRlc2NlbmRpbmcgb3JkZXJcblxuZW1vdGlvbl9iYXIgPC0gY29sU3Vtcyhzb25hX2Vtb3Rpb25zKSBcbmVtb3Rpb25fc3VtIDwtIGRhdGEuZnJhbWUoY291bnQ9ZW1vdGlvbl9iYXIsIHNvbmFfZW1vdGlvbnM9bmFtZXMoZW1vdGlvbl9iYXIpKVxuZW1vdGlvbl9zdW0kc29uYV9lbW90aW9ucyA8LSBmYWN0b3IoZW1vdGlvbl9zdW0kc29uYV9lbW90aW9ucywgbGV2ZWxzPWVtb3Rpb25fc3VtJHNvbmFfZW1vdGlvbnNbb3JkZXIoZW1vdGlvbl9zdW0kY291bnQsIGRlY3JlYXNpbmcgPSBUUlVFKV0pXG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r # Load syuzhet library</p>
+<p>library(syuzhet)</p>
+</div>
+<div id="perform-sentiment-analysis-using-the-syuzhet-library" class="section level1">
+<h1>Perform sentiment analysis using the syuzhet library</h1>
+<p>allemotions &lt;- get_nrc_sentiment(tweets.df$text)</p>
+</div>
+<div id="create-variable-with-just-positive-and-negative-emotions" class="section level1">
+<h1>Create variable with just positive and negative emotions</h1>
+<p>sona_posneg &lt;- allemotions %&gt;% select(, )</p>
+</div>
+<div id="create-variable-with-a-spectrum-of-emotions" class="section level1">
+<h1>Create variable with a spectrum of emotions</h1>
+<p>sona_emotions &lt;- allemotions %&gt;% select(, , , , , , , )</p>
+</div>
+<div id="create-a-dataframe-that-summarises-sentiment-in-descending-order" class="section level1">
+<h1>Create a dataframe that summarises sentiment in descending order</h1>
+<p>emotion_bar &lt;- colSums(sona_emotions) emotion_sum &lt;- data.frame(count=emotion_bar, sona_emotions=names(emotion_bar)) emotion_sum<span class="math inline">\(sona_emotions &lt;- factor(emotion_sum\)</span>sona_emotions, levels=emotion_sum<span class="math inline">\(sona_emotions[order(emotion_sum\)</span>count, decreasing = TRUE)])</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIFZpc3VhbGlzZSBzZW50aW1lbnRcblxubGlicmFyeShwbG90bHkpXG5cbmVtb3Rpb25fcGxvdCA8LSBwbG90X2x5KGVtb3Rpb25fc3VtLFxuICAgICAgICAgICAgIHg9fnNvbmFfZW1vdGlvbnMsIFxuICAgICAgICAgICAgIHk9fmNvdW50LCBcbiAgICAgICAgICAgICB0eXBlPVwiYmFyXCIsIFxuICAgICAgICAgICAgIGNvbG9yPX5zb25hX2Vtb3Rpb25zKSAlPiVcbiAgICAgICAgICAgICBsYXlvdXQgKFxuICAgICAgICAgICAgICAgIHhheGlzID0gbGlzdChcbiAgICAgICAgICAgICAgICAgICAgIHRpdGxlPVwiXCIpLCBzaG93bGVnZW5kPUZBTFNFLFxuICAgICAgICAgICAgIHRpdGxlPVwiRW1vdGlvbiBUeXBlIGZvciBoYXNodGFnOiAjU09OQTIwMTlcIilcblxuZW1vdGlvbl9wbG90XG5gYGAifQ== -->
-<pre class="r"><code>
-# Visualise sentiment
-
-library(plotly)
-
-emotion_plot &lt;- plot_ly(emotion_sum,
-             x=~sona_emotions, 
-             y=~count, 
-             type=&quot;bar&quot;, 
-             color=~sona_emotions) %&gt;%
-             layout (
-                xaxis = list(
-                     title=&quot;&quot;), showlegend=FALSE,
-             title=&quot;Emotion Type for hashtag: #SONA2019&quot;)
-
-emotion_plot</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG4jIFZpc3VhbGlzZSBzZW50aW1lbnRcblxubGlicmFyeShwbG90bHkpXG5cbmVtb3Rpb25fcGxvdCA8LSBwbG90X2x5KGVtb3Rpb25fc3VtLFxuICAgICAgICAgICAgIHg9fnNvbmFfZW1vdGlvbnMsIFxuICAgICAgICAgICAgIHk9fmNvdW50LCBcbiAgICAgICAgICAgICB0eXBlPVxcYmFyXFwsIFxuICAgICAgICAgICAgIGNvbG9yPX5zb25hX2Vtb3Rpb25zKSAlPiVcbiAgICAgICAgICAgICBsYXlvdXQgKFxuICAgICAgICAgICAgICAgIHhheGlzID0gbGlzdChcbiAgICAgICAgICAgICAgICAgICAgIHRpdGxlPVxcXFwpLCBzaG93bGVnZW5kPUZBTFNFLFxuICAgICAgICAgICAgIHRpdGxlPVxcRW1vdGlvbiBUeXBlIGZvciBoYXNodGFnOiAjU09OQTIwMTlcXClcblxuZW1vdGlvbl9wbG90XG5gYGBcbmBgYCJ9 -->
+<p><code>r</code>r</p>
+</div>
+<div id="visualise-sentiment" class="section level1">
+<h1>Visualise sentiment</h1>
+<p>library(plotly)</p>
+<p>emotion_plot &lt;- plot_ly(emotion_sum, x=~sona_emotions, y=~count, type=, color=~sona_emotions) %&gt;% layout ( xaxis = list( title=\), showlegend=FALSE, title=Type for hashtag: #SONA2019)</p>
+<p>emotion_plot</p>
+<pre><code></code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -360,7 +318,7 @@ emotion_plot</code></pre>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlbnRpbWVudCBBbmFseXNpcyBvZiBUd2l0dGVyJ3MgcmVhY3Rpb24gdG8gI1NPTkEyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KQ3lyaWwgUmFtYXBob3NhLCB0aGUgY3VycmVudCBwcmVzaWRlbnQgb2YgU291dGggQWZyaWNhLCBnYXZlIGhpcyBzdGF0ZSBvZiB0aGUgbmF0aW9uIGFkZHJlc3MgdG8gcGFybGlhbWVudCBvbiB0aGUgNyBGZWJydWFyeSAyMDE5LiBIaXMgcG9saXRpY2FsIHBhcnR5LCB0aGUgQWZyaWNhbiBOYXRpb25hbCBDb25ncmVzcyB3ZXJlIGluaXRpYWxseSBjb25zaWRlcmVkIHRvIGJlIHBpb25lZXJzIG9mIGhvcGUgYW5kIHByb3NwZXJpdHkgZm9yIGEgbmV3IFNvdXRoIEFmcmljYSBpbiB0aGUgd2FrZSBvZiB0aGUgYXBhcnRoZWlkLiBIb3dldmVyLCBtb3JlIHJlY2VudGx5LCB0aGUgQWZyaWNhbiBOYXRpb25hbCBDb25ncmVzcyBoYXMgYmVjb21lIHN5bm9ueW1vdXMgd2l0aCBwb2xpdGljYWwgY29ycnVwdGlvbiBhbmQgZ3JlZWQuIA0KDQpHaXZlbiBTb3V0aCBBZnJpY2HigJlzIHN0b3JpZWQgcGFzdCwgSSBkZWNpZGVkIHRvIHBlcmZvcm0gYSBzZW50aW1lbnQgYW5hbHlzaXMgb24gdGhlIHJlYWN0aW9uIHRvIHRoZSBwcmVzaWRlbnTigJlzIGxhdGVzdCBzdGF0ZSBvZiB0aGUgbmF0aW9uIGFkZHJlc3MgYnkgYW5hbHlzaW5nIHR3ZWV0cyB1c2luZyB0aGUgaGFzaHRhZyDigJxTT05BMjAxOeKAnS4gDQoNCiMgSW5zdGFsbCBSZXF1aXJlZCBQYWNrYWdlcyANCmBgYHtyfQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJkcGx5ciIpDQojIGluc3RhbGwucGFja2FnZXMoIm1hZ3JpdHRyIikNCiMgaW5zdGFsbC5wYWNrYWdlcygicGxvdGx5IikNCiMgaW5zdGFsbC5wYWNrYWdlcygicnR3ZWV0IikNCiMgaW5zdGFsbC5wYWNrYWdlcygidGlkeXRleHQiKQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJ0bSIpDQojIGluc3RhbGwucGFja2FnZXMoInN5dXpoZXQiKQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJ3b3JkY2xvdWQiKQ0KYGBgDQojIExvYWQgTGlicmFyaWVzIA0KYGBge3J9DQpsaWJyYXJ5KHRpZHl0ZXh0KQ0KbGlicmFyeShtYWdyaXR0cikNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHN5dXpoZXQpDQoNCmxpYnJhcnkod29yZGNsb3VkKQ0KYGBgDQojIEdldCBhbmQgQ2xlYW4gRGF0YQ0KYGBge3J9DQojIExvYWQgdHdlZXRzIG9idGFpbmVkIHdpdGggdHdpdHRlciBkZXZlbG9wZXIgQVBJDQoNCnR3ZWV0cy5kZiA8LSByZWFkLmNzdigic29uYTIwMTkuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFLCByb3cubmFtZXMgPSAxKQ0KDQojIFdyaXRlIGEgZnVuY3Rpb24gdG8gY2xlYW4gdGhlIHR3ZWV0cw0KDQpjbGVhbi50d2VldHMgPC0gZnVuY3Rpb24oZG9jKSB7DQogIGRvYyA8LSBnc3ViKCJodHRwLioiLCIiLCAgZG9jKQ0KICBkb2MgPC0gZ3N1YigiaHR0cHMuKiIsIiIsIGRvYykNCiAgZG9jIDwtIGdzdWIoImh0dHAuKiIsIiIsdHdlZXRzLmRmJHRleHQpDQogIGRvYyA8LSBnc3ViKCJodHRwcy4qIiwiIixkb2MpDQogIGRvYyA8LSBnc3ViKCIjLioiLCIiLGRvYykNCiAgZG9jIDwtIGdzdWIoIkAuKiIsIiIsZG9jKQ0KICBkb2MgPC0gaWNvbnYoZG9jLCAiVVRGLTgiLCAiQVNDSUkiLCBzdWI9IiIpDQogIHJldHVybihkb2MpDQp9DQoNCiMgQXBwbHkgZnVuY3Rpb24NCg0KdHdlZXRzLmRmJHRleHQgPC0gc2FwcGx5KHR3ZWV0cy5kZiR0ZXh0LCBjbGVhbi50d2VldHMpDQoNCmBgYA0KIyBTZW50aW1lbnQgQW5hbHlzaXMNCmBgYHtyfQ0KIyBMb2FkIHN5dXpoZXQgbGlicmFyeSANCg0KbGlicmFyeShzeXV6aGV0KQ0KDQojIFBlcmZvcm0gc2VudGltZW50IGFuYWx5c2lzIHVzaW5nIHRoZSBzeXV6aGV0IGxpYnJhcnkNCg0KYWxsZW1vdGlvbnMgPC0gZ2V0X25yY19zZW50aW1lbnQodHdlZXRzLmRmJHRleHQpDQoNCiMgQ3JlYXRlIHZhcmlhYmxlIHdpdGgganVzdCBwb3NpdGl2ZSBhbmQgbmVnYXRpdmUgZW1vdGlvbnMgDQoNCnNvbmFfcG9zbmVnIDwtIGFsbGVtb3Rpb25zICU+JQ0KICAgICAgICAgICAgICAgc2VsZWN0KCJwb3NpdGl2ZSIsICJuZWdhdGl2ZSIpDQoNCiMgQ3JlYXRlIHZhcmlhYmxlIHdpdGggYSBzcGVjdHJ1bSBvZiBlbW90aW9ucyANCg0Kc29uYV9lbW90aW9ucyA8LSBhbGxlbW90aW9ucyAlPiUNCiAgICAgICAgICAgICAgICAgc2VsZWN0KCJ0cnVzdCIsICJhbnRpY2lwYXRpb24iLCAiZmVhciIsICJqb3kiLCAiYW5nZXIiLCAic2FkbmVzcyIsICJzdXJwcmlzZSIsICJkaXNndXN0IikNCg0KIyBDcmVhdGUgYSBkYXRhZnJhbWUgdGhhdCBzdW1tYXJpc2VzIHNlbnRpbWVudCBpbiBkZXNjZW5kaW5nIG9yZGVyDQoNCmVtb3Rpb25fYmFyIDwtIGNvbFN1bXMoc29uYV9lbW90aW9ucykgDQplbW90aW9uX3N1bSA8LSBkYXRhLmZyYW1lKGNvdW50PWVtb3Rpb25fYmFyLCBzb25hX2Vtb3Rpb25zPW5hbWVzKGVtb3Rpb25fYmFyKSkNCmVtb3Rpb25fc3VtJHNvbmFfZW1vdGlvbnMgPC0gZmFjdG9yKGVtb3Rpb25fc3VtJHNvbmFfZW1vdGlvbnMsIGxldmVscz1lbW90aW9uX3N1bSRzb25hX2Vtb3Rpb25zW29yZGVyKGVtb3Rpb25fc3VtJGNvdW50LCBkZWNyZWFzaW5nID0gVFJVRSldKQ0KYGBgDQoNCmBgYHtyfQ0KDQojIFZpc3VhbGlzZSBzZW50aW1lbnQNCg0KbGlicmFyeShwbG90bHkpDQoNCmVtb3Rpb25fcGxvdCA8LSBwbG90X2x5KGVtb3Rpb25fc3VtLA0KICAgICAgICAgICAgIHg9fnNvbmFfZW1vdGlvbnMsIA0KICAgICAgICAgICAgIHk9fmNvdW50LCANCiAgICAgICAgICAgICB0eXBlPSJiYXIiLCANCiAgICAgICAgICAgICBjb2xvcj1+c29uYV9lbW90aW9ucykgJT4lDQogICAgICAgICAgICAgbGF5b3V0ICgNCiAgICAgICAgICAgICAgICB4YXhpcyA9IGxpc3QoDQogICAgICAgICAgICAgICAgICAgICB0aXRsZT0iIiksIHNob3dsZWdlbmQ9RkFMU0UsDQogICAgICAgICAgICAgdGl0bGU9IkVtb3Rpb24gVHlwZSBmb3IgaGFzaHRhZzogI1NPTkEyMDE5IikNCg0KZW1vdGlvbl9wbG90DQpgYGANCkF0IGZpcnN0IGdsYW5jZSwgdHdpdHRlcidzIHJlYWN0aW9uIHRvICNTT05BMjAxOSBhcHBlYXJzIHRvIGJlIHF1aXRlIHBvc2l0aXZlLiBUcnVzdCBoYXMgYSBjb3VudCBvZiAxMTI1OSwgd2hpY2ggaXMgMTUwJSBncmVhdGVyIHRoYW4gc2Vjb25kIHBsYWNlIEFudGljaXBhdGlvbi4gSW4gdGhpcmQgcGxhY2UsIEZlYXIgaGFzIGEgY291bnQgb2YgNTUzNSwgd2hpY2ggaGFsZiBvZiB0aGUgcmVhY3Rpb24gdG8gVHJ1c3QuIEhvd2V2ZXIsIHdvcmRzIHRoYXQgY29udmV5IHNlbnRpbWVudCBhcmUgb2Z0ZW4gY29udGV4dHVhbCBhbmQgdGhpcyBtYXkgYmlhcyB0aGUgcmVzdWx0cy4gRnVydGhlciBhbmFseXNpcyBpcyBuZWVkZWQgdG8gZGV0ZXJtaW5lIHRoZSB2YWxpZGl0eSBvZiB0aGVzZSByZXN1bHRzLiANCiMgVGV4dCBNaW5pbmcgDQoNCg0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNlbnRpbWVudCBBbmFseXNpcyBvZiBUd2l0dGVyJ3MgcmVhY3Rpb24gdG8gI1NPTkEyMDE5Ig0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KQ3lyaWwgUmFtYXBob3NhLCB0aGUgY3VycmVudCBwcmVzaWRlbnQgb2YgU291dGggQWZyaWNhLCBnYXZlIGhpcyBzdGF0ZSBvZiB0aGUgbmF0aW9uIGFkZHJlc3MgdG8gcGFybGlhbWVudCBvbiB0aGUgNyBGZWJydWFyeSAyMDE5LiBIaXMgcG9saXRpY2FsIHBhcnR5LCB0aGUgQWZyaWNhbiBOYXRpb25hbCBDb25ncmVzcyB3ZXJlIGluaXRpYWxseSBjb25zaWRlcmVkIHRvIGJlIHBpb25lZXJzIG9mIGhvcGUgYW5kIHByb3NwZXJpdHkgZm9yIGEgbmV3IFNvdXRoIEFmcmljYSBpbiB0aGUgd2FrZSBvZiB0aGUgYXBhcnRoZWlkLiBIb3dldmVyLCBtb3JlIHJlY2VudGx5LCB0aGUgQWZyaWNhbiBOYXRpb25hbCBDb25ncmVzcyBoYXMgYmVjb21lIHN5bm9ueW1vdXMgd2l0aCBwb2xpdGljYWwgY29ycnVwdGlvbiBhbmQgZ3JlZWQuIA0KDQpHaXZlbiBTb3V0aCBBZnJpY2HigJlzIHN0b3JpZWQgcGFzdCwgSSBkZWNpZGVkIHRvIHBlcmZvcm0gYSBzZW50aW1lbnQgYW5hbHlzaXMgb24gdGhlIHJlYWN0aW9uIHRvIHRoZSBwcmVzaWRlbnTigJlzIGxhdGVzdCBzdGF0ZSBvZiB0aGUgbmF0aW9uIGFkZHJlc3MgYnkgYW5hbHlzaW5nIHR3ZWV0cyB1c2luZyB0aGUgaGFzaHRhZyDigJxTT05BMjAxOeKAnS4gDQoNCiMgSW5zdGFsbCBSZXF1aXJlZCBQYWNrYWdlcyANCmBgYHtyfQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJkcGx5ciIpDQojIGluc3RhbGwucGFja2FnZXMoIm1hZ3JpdHRyIikNCiMgaW5zdGFsbC5wYWNrYWdlcygicGxvdGx5IikNCiMgaW5zdGFsbC5wYWNrYWdlcygicnR3ZWV0IikNCiMgaW5zdGFsbC5wYWNrYWdlcygidGlkeXRleHQiKQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJ0bSIpDQojIGluc3RhbGwucGFja2FnZXMoInN5dXpoZXQiKQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCJ3b3JkY2xvdWQiKQ0KYGBgDQojIExvYWQgTGlicmFyaWVzIA0KYGBge3J9DQpsaWJyYXJ5KHRpZHl0ZXh0KQ0KbGlicmFyeShtYWdyaXR0cikNCmxpYnJhcnkoZHBseXIpDQpsaWJyYXJ5KHN5dXpoZXQpDQoNCmxpYnJhcnkod29yZGNsb3VkKQ0KYGBgDQojIEdldCBhbmQgQ2xlYW4gRGF0YQ0KYGBge3J9DQojIExvYWQgdHdlZXRzIG9idGFpbmVkIHdpdGggdHdpdHRlciBkZXZlbG9wZXIgQVBJDQoNCnR3ZWV0cy5kZiA8LSByZWFkLmNzdigic29uYTIwMTkuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFLCByb3cubmFtZXMgPSAxKQ0KDQojIFdyaXRlIGEgZnVuY3Rpb24gdG8gY2xlYW4gdGhlIHR3ZWV0cw0KDQpjbGVhbi50d2VldHMgPC0gZnVuY3Rpb24oZG9jKSB7DQogIGRvYyA8LSBnc3ViKCJodHRwLioiLCIiLCAgZG9jKQ0KICBkb2MgPC0gZ3N1YigiaHR0cHMuKiIsIiIsIGRvYykNCiAgZG9jIDwtIGdzdWIoImh0dHAuKiIsIiIsdHdlZXRzLmRmJHRleHQpDQogIGRvYyA8LSBnc3ViKCJodHRwcy4qIiwiIixkb2MpDQogIGRvYyA8LSBnc3ViKCIjLioiLCIiLGRvYykNCiAgZG9jIDwtIGdzdWIoIkAuKiIsIiIsZG9jKQ0KICBkb2MgPC0gaWNvbnYoZG9jLCAiVVRGLTgiLCAiQVNDSUkiLCBzdWI9IiIpDQogIHJldHVybihkb2MpDQp9DQoNCiMgQXBwbHkgZnVuY3Rpb24NCg0KdHdlZXRzLmRmJHRleHQgPC0gc2FwcGx5KHR3ZWV0cy5kZiR0ZXh0LCBjbGVhbi50d2VldHMpDQoNCmBgYA0KIyBTZW50aW1lbnQgQW5hbHlzaXMNCmBgYHtyfQ0KIyBMb2FkIHN5dXpoZXQgbGlicmFyeSANCg0KbGlicmFyeShzeXV6aGV0KQ0KDQojIFBlcmZvcm0gc2VudGltZW50IGFuYWx5c2lzIHVzaW5nIHRoZSBzeXV6aGV0IGxpYnJhcnkNCg0KYWxsZW1vdGlvbnMgPC0gZ2V0X25yY19zZW50aW1lbnQodHdlZXRzLmRmJHRleHQpDQoNCiMgQ3JlYXRlIHZhcmlhYmxlIHdpdGgganVzdCBwb3NpdGl2ZSBhbmQgbmVnYXRpdmUgZW1vdGlvbnMgDQoNCnNvbmFfcG9zbmVnIDwtIGFsbGVtb3Rpb25zICU+JQ0KICAgICAgICAgICAgICAgc2VsZWN0KCJwb3NpdGl2ZSIsICJuZWdhdGl2ZSIpDQoNCiMgQ3JlYXRlIHZhcmlhYmxlIHdpdGggYSBzcGVjdHJ1bSBvZiBlbW90aW9ucyANCg0Kc29uYV9lbW90aW9ucyA8LSBhbGxlbW90aW9ucyAlPiUNCiAgICAgICAgICAgICAgICAgc2VsZWN0KCJ0cnVzdCIsICJhbnRpY2lwYXRpb24iLCAiZmVhciIsICJqb3kiLCAiYW5nZXIiLCAic2FkbmVzcyIsICJzdXJwcmlzZSIsICJkaXNndXN0IikNCg0KIyBDcmVhdGUgYSBkYXRhZnJhbWUgdGhhdCBzdW1tYXJpc2VzIHNlbnRpbWVudCBpbiBkZXNjZW5kaW5nIG9yZGVyDQoNCmVtb3Rpb25fYmFyIDwtIGNvbFN1bXMoc29uYV9lbW90aW9ucykgDQplbW90aW9uX3N1bSA8LSBkYXRhLmZyYW1lKGNvdW50PWVtb3Rpb25fYmFyLCBzb25hX2Vtb3Rpb25zPW5hbWVzKGVtb3Rpb25fYmFyKSkNCmVtb3Rpb25fc3VtJHNvbmFfZW1vdGlvbnMgPC0gZmFjdG9yKGVtb3Rpb25fc3VtJHNvbmFfZW1vdGlvbnMsIGxldmVscz1lbW90aW9uX3N1bSRzb25hX2Vtb3Rpb25zW29yZGVyKGVtb3Rpb25fc3VtJGNvdW50LCBkZWNyZWFzaW5nID0gVFJVRSldKQ0KYGBgDQoNCmBgYHtyfQ0KDQojIFZpc3VhbGlzZSBzZW50aW1lbnQNCg0KbGlicmFyeShwbG90bHkpDQoNCmVtb3Rpb25fcGxvdCA8LSBwbG90X2x5KGVtb3Rpb25fc3VtLA0KICAgICAgICAgICAgIHg9fnNvbmFfZW1vdGlvbnMsIA0KICAgICAgICAgICAgIHk9fmNvdW50LCANCiAgICAgICAgICAgICB0eXBlPSJiYXIiLCANCiAgICAgICAgICAgICBjb2xvcj1+c29uYV9lbW90aW9ucykgJT4lDQogICAgICAgICAgICAgbGF5b3V0ICgNCiAgICAgICAgICAgICAgICB4YXhpcyA9IGxpc3QoDQogICAgICAgICAgICAgICAgICAgICB0aXRsZT0iIiksIHNob3dsZWdlbmQ9RkFMU0UsDQogICAgICAgICAgICAgdGl0bGU9IkVtb3Rpb24gVHlwZSBmb3IgaGFzaHRhZzogI1NPTkEyMDE5IikNCg0KZW1vdGlvbl9wbG90DQpgYGANCkF0IGZpcnN0IGdsYW5jZSwgdHdpdHRlcidzIHJlYWN0aW9uIHRvICNTT05BMjAxOSBhcHBlYXJzIHRvIGJlIHF1aXRlIHBvc2l0aXZlLiBUcnVzdCBoYXMgYSBjb3VudCBvZiAxMTI1OSwgd2hpY2ggaXMgMTUwJSBncmVhdGVyIHRoYW4gc2Vjb25kIHBsYWNlIEFudGljaXBhdGlvbi4gSW4gdGhpcmQgcGxhY2UsIEZlYXIgaGFzIGEgY291bnQgb2YgNTUzNSwgd2hpY2ggaGFsZiBvZiB0aGUgcmVhY3Rpb24gdG8gVHJ1c3QuIEhvd2V2ZXIsIHdvcmRzIHRoYXQgY29udmV5IHNlbnRpbWVudCBhcmUgb2Z0ZW4gY29udGV4dHVhbCBhbmQgdGhpcyBtYXkgYmlhcyB0aGUgcmVzdWx0cy4gRnVydGhlciBhbmFseXNpcyBpcyBuZWVkZWQgdG8gZGV0ZXJtaW5lIHRoZSB2YWxpZGl0eSBvZiB0aGVzZSByZXN1bHRzLiANCiMgVGV4dCBNaW5pbmcgDQoNCg0KDQo=</div>
 
 
 

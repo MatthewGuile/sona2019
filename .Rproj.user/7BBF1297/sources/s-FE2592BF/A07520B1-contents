@@ -1,0 +1,82 @@
+library(dplyr) #data manipulation
+library(ggplot2) #visualizations
+library(gridExtra) #viewing multiple plots together
+library(tidytext) #text mining
+library(wordcloud2) #creative visualizations
+library(knitr) # for dynamic reporting
+library(kableExtra) # create a nicely formated HTML table
+library(formattable) # for the color_tile function
+library(tidyr) #Spread, separate, unite, text mining (also included in the tidyverse package)
+library(widyr) #Use for pairwise correlation
+
+# kable html styling
+my_kable_styling <- function(dat, caption) {
+  kable(dat, "html", escape = FALSE, caption = caption) %>%
+    kable_styling(bootstrap_options = c("striped", "condensed", "bordered"),
+                  full_width = FALSE)
+}
+
+
+lyrics_filtered <- read.csv("lyrics_filtered.csv", stringsAsFactors = FALSE, row.names = 1)
+
+glimpse(lyrics_filtered)
+
+tool_lyrics <- lyrics_filtered %>%
+   filter(!nchar(word) < 3) #Words like "ah" or "oo" used in music
+
+new_sentiments <- sentiments %>% #From the tidytext package
+  filter(lexicon != "loughran") %>% #Remove the finance lexicon
+  mutate( sentiment = ifelse(lexicon == "AFINN" & score >= 0, "positive",
+                             ifelse(lexicon == "AFINN" & score < 0,
+                                    "negative", sentiment))) %>%
+  group_by(lexicon) %>%
+  mutate(words_in_lexicon = n_distinct(word)) %>%
+  ungroup()
+
+new_sentiments %>%
+  group_by(lexicon, sentiment, words_in_lexicon) %>%
+  summarise(distinct_words = n_distinct(word)) %>%
+  ungroup() %>%
+  spread(sentiment, distinct_words) %>%
+  mutate(lexicon = color_tile("lightblue", "lightblue")(lexicon),
+         words_in_lexicon = color_bar("lightpink")(words_in_lexicon)) %>%
+  my_kable_styling(caption = "Word Counts Per Lexicon")
+
+tool_lyrics %>%
+  mutate(words_in_lyrics = n_distinct(word)) %>%
+  inner_join(new_sentiments) %>%
+  group_by(lexicon, words_in_lyrics, words_in_lexicon) %>%
+  summarise(lex_match_words = n_distinct(word)) %>%
+  ungroup() %>%
+  mutate(total_match_words = sum(lex_match_words), #Not used but good to have
+         match_ratio = lex_match_words / words_in_lyrics) %>%
+  select(lexicon, lex_match_words,  words_in_lyrics, match_ratio) %>%
+  mutate(lex_match_words = color_bar("lightpink")(lex_match_words),
+         lexicon = color_tile("lightgreen", "lightgreen")(lexicon)) %>%
+  my_kable_styling(caption = "Lyrics Found In Lexicons")
+
+tool_bing <- tool_lyrics %>%
+  inner_join(get_sentiments("bing"))
+tool_nrc <- tool_lyrics  %>%
+  inner_join(get_sentiments("nrc"))
+tool_nrc_sub <- tool_lyrics  %>%
+  inner_join(get_sentiments("nrc")) %>%
+  filter(!sentiment %in% c("positive", "negative"))
+
+nrc_plot <- tool_nrc %>%
+  group_by(sentiment) %>%
+  summarise(word_count = n()) %>%
+  ungroup() %>%
+  mutate(sentiment = reorder(sentiment, word_count)) %>%
+  #Use `fill = -word_count` to make the larger bars darker
+  ggplot(aes(sentiment, word_count, fill = -word_count)) +
+  geom_col() +
+  guides(fill = FALSE) + #Turn off the legend
+  theme_lyrics() +
+  labs(x = NULL, y = "Word Count") +
+  scale_y_continuous(limits = c(0, 500)) + #Hard code the axis limit
+  ggtitle("Tool NRC Sentiment") +
+  coord_flip()
+
+nrc_plot
+

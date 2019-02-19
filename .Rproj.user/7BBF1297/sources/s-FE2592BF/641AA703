@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550590751674.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1092349284",
+    "id" : "641AA703",
+    "lastKnownWriteTime" : 1550591113,
+    "last_content_update" : 1550591113258,
+    "path" : "~/GitHub/sona2019/Sona2019.R",
+    "project_path" : "Sona2019.R",
+    "properties" : {
+        "cursorPosition" : "203,0",
+        "scrollLine" : "173"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

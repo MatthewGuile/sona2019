@@ -1,0 +1,10 @@
+"0","```r
+# install.packages(\"dplyr\")
+# install.packages(\"magrittr\")
+# install.packages(\"plotly\")
+# install.packages(\"rtweet\")
+# install.packages(\"tidytext\")
+# install.packages(\"tm\")
+# install.packages(\"syuzhet\")
+# install.packages(\"wordcloud\")
+```"

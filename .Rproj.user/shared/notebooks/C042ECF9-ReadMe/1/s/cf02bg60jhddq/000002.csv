@@ -1,0 +1,22 @@
+"0","```r
+# Load tweets obtained with twitter developer API
+tweets.df <- read.csv(\"sona2019.csv\", stringsAsFactors = FALSE, row.names = 1)
+# Write a function to clean the tweets
+clean.tweets <- function(doc) {
+  doc <- gsub(\"http.*\",\"\",  doc)
+  doc <- gsub(\"https.*\",\"\", doc)
+  doc <- gsub(\"&amp\", \"\", doc)
+  doc <- gsub(\"&amp\", \"\", doc)
+  doc <- gsub(\"(RT|via)((?:\\b\\W*@\\w+)+)\", \"\", doc)
+  doc <- gsub(\"@\\w+\", \"\", doc)
+  doc <- gsub(\"[[:punct:]]\", \"\", doc)
+  doc <- gsub(\"[[:digit:]]\", \"\", doc)
+  doc <- gsub(\"http\\w+\", \"\", doc)
+  doc <- gsub(\"[ \t]{2,}\", \"\", doc)
+  doc <- gsub(\"^\\s+|\\s+$\", \"\", doc)
+  doc <- iconv(doc, \"UTF-8\", \"ASCII\", sub=\"\")
+  return(doc)
+}
+# Apply function
+tweets.df$text <- sapply(tweets.df$text, clean.tweets)
+```"

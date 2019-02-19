@@ -1,0 +1,39 @@
+"0","# Wordcloud data for cloud comparison"
+"0","library(wordcloud)"
+"2","Loading required package: RColorBrewer
+"
+"0","library(tm)"
+"2","Loading required package: NLP
+"
+"2","
+Attaching package: ‘NLP’
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    annotate
+
+"
+"0","posneg_wordcloud = c("
+"0","  paste(tweets.df[allemotions$positive > 0], collapse="" ""),"
+"0","  paste(tweets.df[allemotions$negative > 0], collapse="" "")"
+"0",")"
+"0","# Create corpus for text mining "
+"0","corpus = Corpus(VectorSource(posneg_wordcloud))"
+"0","# Remove stopwords "
+"0","corpus = tm_map(corpus, removeWords, c(stopwords(""english"")))"
+"2","transformation drops documents"
+"0","# Create document term matrix"
+"0","tdm = TermDocumentMatrix(corpus)"
+"0","# Convert as matrix"
+"0","tdm <- as.matrix(tdm)"
+"0","tdmnew <- tdm[nchar(rownames(tdm)) < 11,]"
+"0","# Column name binding"
+"0","colnames(tdm) <- c(""positive"", ""negative"")"
+"0","colnames(tdmnew) <- colnames(tdm)"
+"0","comparison.cloud(tdmnew, random.order=FALSE,"
+"0","                 colors = c(""blue"", ""red""),"
+"0","                 title.size = 1,"
+"0","                 max.words = 200, "
+"0","                 scale = c(2.5, 0.4),"
+"0","                 rot.per = 0.4)"

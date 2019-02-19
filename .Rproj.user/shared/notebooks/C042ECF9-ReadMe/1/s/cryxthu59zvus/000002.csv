@@ -1,0 +1,18 @@
+"0","```r
+
+# Visualise sentiment
+
+library(plotly)
+
+emotion_plot <- plot_ly(emotion_sum,
+             x=~sona_emotions, 
+             y=~count, 
+             type=\"bar\", 
+             color=~sona_emotions) %>%
+             layout (
+                xaxis = list(
+                     title=\"\"), showlegend=FALSE,
+             title=\"Emotion Type for hashtag: #SONA2019\")
+
+emotion_plot
+```"
